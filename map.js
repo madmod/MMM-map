@@ -1,6 +1,6 @@
 'use strict';
 
-/* global Log, Module, moment, config, Tangram */
+/* global Log, Module, config, L, Tangram */
 /* Magic Mirror
  * Module: Map
  *
@@ -37,9 +37,6 @@ Module.register('map', {
     setInterval(function() {
       self.updateDom();
     }, 1000);
-
-    // Set locale.
-    moment.locale(config.language);
   },
 
   // Override dom generator.
