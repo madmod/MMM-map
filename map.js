@@ -32,11 +32,13 @@ Module.register('map', {
   start: function() {
     Log.info('Starting module: ' + this.name);
 
+    /*
     // Schedule update interval.
     var self = this;
     setInterval(function() {
       self.updateDom();
     }, 1000);
+    */
   },
 
   // Override dom generator.
@@ -46,8 +48,8 @@ Module.register('map', {
 
     var mapElement = document.createElement('div');
     mapElement.className = 'map';
-    mapElement.id = 'map';
 
+    wrapper.appendChild(mapElement);
 
     var locations = {
         'Oakland': [37.8044, -122.2708, 15],
@@ -55,21 +57,21 @@ Module.register('map', {
         'Seattle': [47.5937, -122.3215, 15]
     };
 
-    var map_start_location = locations['Oakland'];
+    var map_start_location = locations['New York'];
 
     /*** Map ***/
 
-    var map = L.map('map', {
+    var map = L.map(mapElement, {
       maxZoom: 20,
       zoomControl: false
     });
 
     var layer = Tangram.leafletLayer({
-      scene: 'MMM-map/refill-style-more-labels.yaml',
+      scene: '/modules/map/refill-style-more-labels.yaml',
       attribution: ''
     });
 
-    L.marker([37.8044, -122.2708]).addTo(map)
+    L.marker(map_start_location).addTo(map)
       .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
       .openPopup();
 
@@ -101,46 +103,7 @@ Module.register('map', {
     }
     */
 
-    function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
-    function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
-
-    /***** Render loop *****/
-
-    window.addEventListener('load', function () {
-        // Scene initialized
-        layer.on('init', function() {
-        });
-        layer.addTo(map);
-    });
-
-
-    /*
-    if (placement === 'left' || placement === 'right') {
-      digitalWrapper.style.display = 'inline-block';
-      digitalWrapper.style.verticalAlign = 'top';
-      analogWrapper.style.display = 'inline-block';
-      if (placement === 'left') {
-        analogWrapper.style.padding = '0 20px 0 0';
-        wrapper.appendChild(analogWrapper);
-        wrapper.appendChild(digitalWrapper);
-      } else {
-        analogWrapper.style.padding = '0 0 0 20px';
-        wrapper.appendChild(digitalWrapper);
-        wrapper.appendChild(analogWrapper);
-      }
-    } else {
-      digitalWrapper.style.textAlign = 'center';
-      if (placement === 'top') {
-        analogWrapper.style.padding = '0 0 20px 0';
-        wrapper.appendChild(analogWrapper);
-        wrapper.appendChild(digitalWrapper);
-      } else {
-        analogWrapper.style.padding = '20px 0 0 0';
-        wrapper.appendChild(digitalWrapper);
-        wrapper.appendChild(analogWrapper);
-      }
-    }
-    */
+    layer.addTo(map);
 
     // Return the wrapper to the dom.
     return wrapper;
