@@ -46,6 +46,7 @@ Module.register('map', {
 
     var mapElement = document.createElement('div');
     mapElement.className = 'map';
+    mapElement.id = 'map';
 
 
     var locations = {
@@ -58,7 +59,7 @@ Module.register('map', {
 
     /*** Map ***/
 
-    var map = L.map(mapElement, {
+    var map = L.map('map', {
       maxZoom: 20,
       zoomControl: false
     });
@@ -101,7 +102,7 @@ Module.register('map', {
     */
 
     function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
-    function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }    
+    function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
 
     /***** Render loop *****/
 
