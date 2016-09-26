@@ -15,7 +15,7 @@ Module.register('map', {
   // Define required scripts.
   getScripts: function() {
     return [
-      'moment.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js',
       'https://mapzen.com/tangram/0.6/tangram.min.js'
     ];
   },
