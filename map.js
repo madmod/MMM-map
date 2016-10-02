@@ -15,8 +15,7 @@ Module.register('map', {
   // Define required scripts.
   getScripts: function() {
     return [
-      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js',
-      'https://mapzen.com/tangram/0.6/tangram.min.js'
+      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js'
     ];
   },
 
@@ -66,6 +65,7 @@ Module.register('map', {
       zoomControl: false
     });
 
+    /*
     var layer = Tangram.leafletLayer({
       scene: '/modules/map/refill-style-more-labels.yaml',
       attribution: ''
@@ -81,6 +81,7 @@ Module.register('map', {
     window.scene = scene;
 
     layer.options.attribution = '';
+    */
     map.attributionControl.setPrefix('');
 
     /*
@@ -94,6 +95,13 @@ Module.register('map', {
     // setView expects format ([lat, long], zoom)
     map.setView(map_start_location.slice(0, 3), map_start_location[2]);
 
+    var key = 'pk.eyJ1IjoibWFkbW9kIiwiYSI6ImNpdHQxMGc4MDA0dXoydW9iZHlidmdtejEifQ.BVT-yz74yE13h4PQf1aALw';
+    map.
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + key, {
+      attribution: '',
+      maxZoom: 20
+    }).addTo(map);
+
     /*
     map.setZoom(0);
     for (var i = 0; i < 10000; i++) {
@@ -103,7 +111,7 @@ Module.register('map', {
     }
     */
 
-    layer.addTo(map);
+    //layer.addTo(map);
 
     // Return the wrapper to the dom.
     return wrapper;
